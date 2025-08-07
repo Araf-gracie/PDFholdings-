@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDFholdings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    body {
+      background-color: #6c757d; /* Darker background */
+      padding: 10px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 10px 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      width: 35px;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: #eee;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 5px;
+      width: 150px;
+    }
+
+    .search-box button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+      .search-box input {
+        width: 250px;
+      }
+    }
+
+    nav {
+      background-color: #fff;
+      margin: 15px auto;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      max-width: 500px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #007bff;
+    }
+
+    .products-container {
+      column-count: 2;
+      column-gap: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .products-container {
+        column-count: 3;
+      }
+    }
+
+    .product {
+      background-color: rgba(255, 255, 255, 0.15); /* transparent look */
+      border: 1px solid rgba(255,255,255,0.3); /* subtle border */
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: inline-block;
+      margin-bottom: 15px;
+      width: 100%;
+      break-inside: avoid;
+      padding: 15px;
+      text-align: center;
+      backdrop-filter: blur(6px); /* glass effect */
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .product img {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .product-info h3,
+    .product-info p,
+    .product-info .en {
+      color: #fff;
+    }
+
+    .product-info h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .product-info p {
+      font-size: 13px;
+    }
+
+    .product-info .en {
+      font-size: 12px;
+      font-style: italic;
+      margin-top: 5px;
+    }
+
+    .download-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      <span class="brand-name">PDFholdings</span>
+    </div>
+    <form class="search-box" onsubmit="handleSearch(event)">
+      <input type="text" placeholder="Search books...">
+      <button type="submit">&#128269;</button>
+    </form>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Category</a>
+    <a href="#">Contact</a>
+    <a href="#">Upload</a>
+  </nav>
+
+  <!-- Products -->
+  <div class="products-container">
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81drfTT9ZfL.jpg"><div class="product-info"><h3>দ্য রিচেস্ট ম্যান</h3><p>অর্থ সঞ্চয়, বিনিয়োগ শেখার সহজ বই।</p><p class="en">Guide to wealth-building.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/91bYsX41DVL.jpg"><div class="product-info"><h3>অ্যাটমিক হ্যাবিটস</h3><p>ছোট অভ্যাস বদলায় জীবনের দিক।</p><p class="en">Small changes = Big success.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81dQwQlmAXL.jpg"><div class="product-info"><h3>থিংক & গ্রো রিচ</h3><p>চিন্তা বদলালেই সাফল্য।</p><p class="en">Mindset builds success.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/91uwocAMtSL.jpg"><div class="product-info"><h3>হাউ টু উইন</h3><p>সম্পর্ক গড়ার সহজ উপায়।</p><p class="en">Win friends easily.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81-QB7nDh4L.jpg"><div class="product-info"><h3>স্টিভ জবস</h3><p>উদ্যোক্তার জীবনের গল্প।</p><p class="en">The visionary's life.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg"><div class="product-info"><h3>দ্য আলকেমিস্ট</h3><p>স্বপ্নকে বাস্তবে রূপ দাও।</p><p class="en">Chase your dream.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/91asIC1fRwL.jpg"><div class="product-info"><h3>শুধু ভালোবাসা</h3><p>ভালোবাসার গল্প।</p><p class="en">Deep love story.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81eB+7+CkUL.jpg"><div class="product-info"><h3>৭ হ্যাবিটস</h3><p>সফলতার ৭টি চাবিকাঠি।</p><p class="en">7 Habits guide.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81mL+djzQ-L.jpg"><div class="product-info"><h3>সাবকনশাস মাইন্ড</h3><p>মনোবিদ্যার শক্তি।</p><p class="en">Subconscious power.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg"><div class="product-info"><h3>হ্যারি পটার</h3><p>জাদুকরী জগতের শুরু।</p><p class="en">Magical journey.</p></div><button class="download-btn">Download</button></div>
+
+    <div class="product"><img src="https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg"><div class="product-info"><h3>ইগনাইট ব্রেইন</h3><p>মস্তিষ্ক জাগাও।</p><p class="en">Boost your brain.</p></div><button class="download-btn">Download</button></div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function handleSearch(e) {
+      e.preventDefault();
+      alert("Search clicked!");
+    }
+  </script>
+</body>
+</html>
