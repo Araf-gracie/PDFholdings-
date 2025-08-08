@@ -1,225 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PDFholdings</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PDFholdings - Masonry Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-    body {
-      background-color: #6c757d; /* Darker background */
-      padding: 10px;
-    }
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #ffffff;
-      padding: 10px 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+  body {
+    margin: 0; padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #eee;
+    min-height: 100vh;
+  }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+  /* Header */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e1e;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #000;
+    margin-bottom: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand img {
+    width: 42px;
+    filter: drop-shadow(0 0 4px #ffd369);
+  }
+  .brand-name {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    color: #ffd369;
+  }
 
-    .brand img {
-      width: 35px;
-    }
+  /* Search box */
+  .search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 600px;
+    margin-left: 20px;
+    background: #292929;
+    border-radius: 30px;
+    box-shadow: inset 0 0 8px #111;
+    transition: background-color 0.4s ease;
+  }
+  .search-box.active {
+    background: #fff;
+    box-shadow: 0 0 15px #ffd369;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 10px 45px 10px 15px;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    color: #eee;
+    outline: none;
+    border-radius: 30px;
+    transition: color 0.4s ease;
+  }
+  .search-box.active input {
+    color: #222;
+  }
+  .search-box input::placeholder {
+    color: #bbb;
+    font-style: italic;
+    transition: color 0.4s ease;
+  }
+  .search-box.active input::placeholder {
+    color: #666;
+  }
+  .search-box svg {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    stroke: #ffd369;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+    transition: stroke 0.4s ease;
+  }
+  .search-box.active svg {
+    stroke: #bb8f00;
+  }
 
-    .brand-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: #333;
-    }
+  /* Navigation */
+  nav {
+    display: flex;
+    justify-content: space-around;
+    background: #1e1e1e;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+    font-weight: 600;
+    color: #eee;
+    margin-bottom: 28px;
+    flex-wrap: wrap; /* wrap so items fit on mobile */
+  }
+  nav a {
+    text-decoration: none;
+    color: #eee;
+    font-size: 17px;
+    transition: color 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  nav a:hover {
+    color: #ffd369;
+    background-color: #333;
+  }
+  nav a img {
+    width: 18px;
+    height: 18px;
+  }
 
-    .search-box {
-      display: flex;
-      align-items: center;
-      background-color: #eee;
-      padding: 5px 10px;
-      border-radius: 20px;
-    }
-
-    .search-box input {
-      border: none;
-      outline: none;
-      background: transparent;
-      padding: 5px;
-      width: 150px;
-    }
-
-    .search-box button {
-      background: none;
-      border: none;
-      font-size: 18px;
-      color: gray;
-      cursor: pointer;
-    }
-
-    @media (min-width: 768px) {
-      .search-box input {
-        width: 250px;
-      }
-    }
-
-    nav {
-      background-color: #fff;
-      margin: 15px auto;
-      padding: 10px 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-      font-size: 15px;
-      max-width: 500px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #007bff;
-    }
-
+  /* Masonry container */
+  .products-container {
+    column-count: 2;
+    column-gap: 24px;
+  }
+  @media(min-width: 768px) {
     .products-container {
-      column-count: 2;
-      column-gap: 15px;
+      column-count: 3;
     }
+  }
+  @media(min-width: 1200px) {
+    .products-container {
+      column-count: 4;
+    }
+  }
 
-    @media (min-width: 768px) {
-      .products-container {
-        column-count: 3;
-      }
-    }
+  /* Product card */
+  .product {
+    background: #292929;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 24px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(255, 213, 105, 0.15);
+    padding: 18px 15px 24px;
+    color: #eee;
+    break-inside: avoid;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 35px rgba(255, 213, 105, 0.4);
+  }
+  .product img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto 15px;
+    display: block;
+    box-shadow: 0 0 10px #ffd369aa;
+  }
+  .product-info h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #ffd369;
+    text-align: center;
+  }
+  .product-info p {
+    font-size: 14px;
+    line-height: 1.3;
+    color: #ddd;
+    margin: 0 0 6px;
+    text-align: center;
+  }
+  .product-info .en {
+    font-size: 13px;
+    font-style: italic;
+    color: #bbb;
+    margin-top: 6px;
+    text-align: center;
+  }
+  .download-btn {
+    margin-top: 18px;
+    background: linear-gradient(90deg, #120f0f, #312f2f);
+    color: #ffd369;
+    border: none;
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 34px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: inset 0 0 10px #ffd36955;
+    transition: all 0.3s ease;
+  }
+  .download-btn:hover {
+    background: linear-gradient(90deg, #312f2f, #120f0f);
+    box-shadow: 0 0 16px #ffd369ee;
+    color: #fff;
+  }
+</style>
 
-    .product {
-      background-color: rgba(255, 255, 255, 0.15); /* transparent look */
-      border: 1px solid rgba(255,255,255,0.3); /* subtle border */
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: inline-block;
-      margin-bottom: 15px;
-      width: 100%;
-      break-inside: avoid;
-      padding: 15px;
-      text-align: center;
-      backdrop-filter: blur(6px); /* glass effect */
-      -webkit-backdrop-filter: blur(6px);
-    }
-
-    .product img {
-      width: 100px;
-      height: auto;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .product-info h3,
-    .product-info p,
-    .product-info .en {
-      color: #fff;
-    }
-
-    .product-info h3 {
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .product-info p {
-      font-size: 13px;
-    }
-
-    .product-info .en {
-      font-size: 12px;
-      font-style: italic;
-      margin-top: 5px;
-    }
-
-    .download-btn {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #000;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-      cursor: pointer;
-      width: 100%;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="brand">
-      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
-      <span class="brand-name">PDFholdings</span>
+<header>
+  <div class="brand">
+    <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="PDFholdings Logo" />
+    <span class="brand-name">PDFholdings</span>
+  </div>
+  <form class="search-box" id="searchForm" onsubmit="event.preventDefault()">
+    <input type="text" placeholder="Search books..." aria-label="Search books" id="searchInput" />
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </form>
+</header>
+
+<nav>
+  <a href="#">
+    <img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="Home" />
+    Home
+  </a>
+  <a href="#">
+    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055672.png" alt="Category" />
+    Category
+  </a>
+  <a href="#">
+    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Contact" />
+    Contact
+  </a>
+  <a href="#">
+    <img src="https://cdn-icons-png.flaticon.com/512/109/109612.png" alt="Upload" />
+    Upload
+  </a>
+</nav>
+
+<div class="products-container" id="productsContainer">
+
+  <!-- Sample product cards -->
+
+  <div class="product" data-title="দ্য রিচেস্ট ম্যান">
+    <img src="https://m.media-amazon.com/images/I/81drfTT9ZfL.jpg" alt="দ্য রিচেস্ট ম্যান" />
+    <div class="product-info">
+      <h3>দ্য রিচেস্ট ম্যান</h3>
+      <p>অর্থ সঞ্চয়, বিনিয়োগ শেখার সহজ বই।</p>
+      <p class="en">Guide to wealth-building.</p>
     </div>
-    <form class="search-box" onsubmit="handleSearch(event)">
-      <input type="text" placeholder="Search books...">
-      <button type="submit">&#128269;</button>
-    </form>
-  </header>
-
-  <!-- Navigation -->
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Category</a>
-    <a href="#">Contact</a>
-    <a href="#">Upload</a>
-  </nav>
-
-  <!-- Products -->
-  <div class="products-container">
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81drfTT9ZfL.jpg"><div class="product-info"><h3>দ্য রিচেস্ট ম্যান</h3><p>অর্থ সঞ্চয়, বিনিয়োগ শেখার সহজ বই।</p><p class="en">Guide to wealth-building.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/91bYsX41DVL.jpg"><div class="product-info"><h3>অ্যাটমিক হ্যাবিটস</h3><p>ছোট অভ্যাস বদলায় জীবনের দিক।</p><p class="en">Small changes = Big success.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81dQwQlmAXL.jpg"><div class="product-info"><h3>থিংক & গ্রো রিচ</h3><p>চিন্তা বদলালেই সাফল্য।</p><p class="en">Mindset builds success.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/91uwocAMtSL.jpg"><div class="product-info"><h3>হাউ টু উইন</h3><p>সম্পর্ক গড়ার সহজ উপায়।</p><p class="en">Win friends easily.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81-QB7nDh4L.jpg"><div class="product-info"><h3>স্টিভ জবস</h3><p>উদ্যোক্তার জীবনের গল্প।</p><p class="en">The visionary's life.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg"><div class="product-info"><h3>দ্য আলকেমিস্ট</h3><p>স্বপ্নকে বাস্তবে রূপ দাও।</p><p class="en">Chase your dream.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/91asIC1fRwL.jpg"><div class="product-info"><h3>শুধু ভালোবাসা</h3><p>ভালোবাসার গল্প।</p><p class="en">Deep love story.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81eB+7+CkUL.jpg"><div class="product-info"><h3>৭ হ্যাবিটস</h3><p>সফলতার ৭টি চাবিকাঠি।</p><p class="en">7 Habits guide.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81mL+djzQ-L.jpg"><div class="product-info"><h3>সাবকনশাস মাইন্ড</h3><p>মনোবিদ্যার শক্তি।</p><p class="en">Subconscious power.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg"><div class="product-info"><h3>হ্যারি পটার</h3><p>জাদুকরী জগতের শুরু।</p><p class="en">Magical journey.</p></div><button class="download-btn">Download</button></div>
-
-    <div class="product"><img src="https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg"><div class="product-info"><h3>ইগনাইট ব্রেইন</h3><p>মস্তিষ্ক জাগাও।</p><p class="en">Boost your brain.</p></div><button class="download-btn">Download</button></div>
+    <button class="download-btn">Download</button>
   </div>
 
-  <!-- JS -->
-  <script>
-    function handleSearch(e) {
-      e.preventDefault();
-      alert("Search clicked!");
+  <div class="product" data-title="অ্যাটমিক হ্যাবিটস">
+    <img src="https://m.media-amazon.com/images/I/91bYsX41DVL.jpg" alt="অ্যাটমিক হ্যাবিটস" />
+    <div class="product-info">
+      <h3>অ্যাটমিক হ্যাবিটস</h3>
+      <p>ছোট অভ্যাস বদলায় জীবনের দিক।</p>
+      <p class="en">Small changes = Big success.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="থিংক & গ্রো রিচ">
+    <img src="https://m.media-amazon.com/images/I/81dQwQlmAXL.jpg" alt="থিংক & গ্রো রিচ" />
+    <div class="product-info">
+      <h3>থিংক & গ্রো রিচ</h3>
+      <p>চিন্তা বদলালেই সাফল্য।</p>
+      <p class="en">Mindset builds success.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="হাউ টু উইন">
+    <img src="https://m.media-amazon.com/images/I/91uwocAMtSL.jpg" alt="হাউ টু উইন" />
+    <div class="product-info">
+      <h3>হাউ টু উইন</h3>
+      <p>সম্পর্ক গড়ার সহজ উপায়।</p>
+      <p class="en">Win friends easily.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="স্টিভ জবস">
+    <img src="https://m.media-amazon.com/images/I/81-QB7nDh4L.jpg" alt="স্টিভ জবস" />
+    <div class="product-info">
+      <h3>স্টিভ জবস</h3>
+      <p>উদ্যোক্তার জীবনের গল্প।</p>
+      <p class="en">The visionary's life.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="দ্য আলকেমিস্ট">
+    <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg" alt="দ্য আলকেমিস্ট" />
+    <div class="product-info">
+      <h3>দ্য আলকেমিস্ট</h3>
+      <p>স্বপ্নকে বাস্তবে রূপ দাও।</p>
+      <p class="en">Chase your dream.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="শুধু ভালোবাসা">
+    <img src="https://m.media-amazon.com/images/I/91asIC1fRwL.jpg" alt="শুধু ভালোবাসা" />
+    <div class="product-info">
+      <h3>শুধু ভালোবাসা</h3>
+      <p>ভালোবাসার গল্প।</p>
+      <p class="en">Deep love story.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="৭ হ্যাবিটস">
+    <img src="https://m.media-amazon.com/images/I/81eB+7+CkUL.jpg" alt="৭ হ্যাবিটস" />
+    <div class="product-info">
+      <h3>৭ হ্যাবিটস</h3>
+      <p>সফলতার ৭টি চাবিকাঠি।</p>
+      <p class="en">7 Habits guide.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="সাবকনশাস মাইন্ড">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Brain_icon.svg" alt="সাবকনশাস মাইন্ড" style="max-width:110px; margin: 0 auto 12px" />
+    <div class="product-info">
+      <h3>সাবকনশাস মাইন্ড</h3>
+      <p>মনোবিদ্যার শক্তি।</p>
+      <p class="en">Subconscious power.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="হ্যারি পটার">
+    <img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg" alt="হ্যারি পটার" />
+    <div class="product-info">
+      <h3>হ্যারি পটার</h3>
+      <p>জাদুকরী জগতের শুরু।</p>
+      <p class="en">Magical journey.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="ইগনাইট ব্রেইন">
+    <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg" alt="ইগনাইট ব্রেইন" />
+    <div class="product-info">
+      <h3>ইগনাইট ব্রেইন</h3>
+      <p>মস্তিষ্ক জাগাও।</p>
+      <p class="en">Boost your brain.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <!-- Add duplicates or more products to fill -->
+  <div class="product" data-title="দ্য রিচেস্ট ম্যান">
+    <img src="https://m.media-amazon.com/images/I/81drfTT9ZfL.jpg" alt="দ্য রিচেস্ট ম্যান" />
+    <div class="product-info">
+      <h3>দ্য রিচেস্ট ম্যান</h3>
+      <p>অর্থ সঞ্চয়, বিনিয়োগ শেখার সহজ বই।</p>
+      <p class="en">Guide to wealth-building.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+  <div class="product" data-title="অ্যাটমিক হ্যাবিটস">
+    <img src="https://m.media-amazon.com/images/I/91bYsX41DVL.jpg" alt="অ্যাটমিক হ্যাবিটস" />
+    <div class="product-info">
+      <h3>অ্যাটমিক হ্যাবিটস</h3>
+      <p>ছোট অভ্যাস বদলায় জীবনের দিক।</p>
+      <p class="en">Small changes = Big success.</p>
+    </div>
+    <button class="download-btn">Download</button>
+  </div>
+
+</div>
+
+<script>
+  // Search bar theme toggle on focus and blur
+  const searchBox = document.querySelector('.search-box');
+  const searchInput = document.getElementById('searchInput');
+
+  searchInput.addEventListener('focus', () => {
+    searchBox.classList.add('active');
+  });
+  searchInput.addEventListener('blur', () => {
+    if (!searchInput.value.trim()) {
+      searchBox.classList.remove('active');
     }
-  </script>
+  });
+</script>
+
 </body>
 </html>
