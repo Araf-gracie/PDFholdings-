@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Upload Your Book - PDFholdings</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0; padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    max-width: 960px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #000;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    margin-bottom: 40px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand img {
+    width: 42px;
+    filter: drop-shadow(0 0 4px #ffd369);
+  }
+  .brand-name {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    color: #ffd369;
+  }
+
+  main {
+    width: 100%;
+    max-width: 960px;
+    background: #292929;
+    padding: 30px 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(255, 213, 105, 0.15);
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  /* Image container */
+  .upload-image {
+    flex: 1;
+    max-width: 320px;
+  }
+  .upload-image img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 0 20px #ffd369bb;
+    display: block;
+  }
+
+  .upload-form {
+    flex: 1;
+  }
+
+  h1 {
+    color: #ffd369;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 1px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #ffd369;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  input[type="file"],
+  textarea {
+    background: #1e1e1e;
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 15px;
+    color: #eee;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+  }
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  input[type="file"]:focus,
+  textarea:focus {
+    border-color: #ffd369;
+    outline: none;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  button {
+    background: linear-gradient(90deg, #120f0f, #312f2f);
+    color: #ffd369;
+    border: none;
+    padding: 14px 0;
+    border-radius: 34px;
+    font-weight: 700;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: inset 0 0 12px #ffd36955;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #312f2f, #120f0f);
+    box-shadow: 0 0 22px #ffd369ee;
+    color: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    main {
+      flex-direction: column;
+      padding: 25px 20px 35px;
+    }
+    .upload-image {
+      max-width: 100%;
+      margin-bottom: 30px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="PDFholdings Logo" />
+    <span class="brand-name">PDFholdings</span>
+  </div>
+</header>
+
+<main>
+  <div class="upload-image">
+    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" alt="Book Upload Illustration" />
+  </div>
+
+  <div class="upload-form">
+    <h1>Upload Your Book</h1>
+    <form id="uploadForm" onsubmit="event.preventDefault(); alert('Upload functionality not implemented yet.');">
+      <label for="bookTitle">Book Title</label>
+      <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter book title" required />
+
+      <label for="authorName">Author Name</label>
+      <input type="text" id="authorName" name="authorName" placeholder="Enter author name" />
+
+      <label for="bookDescription">Description</label>
+      <textarea id="bookDescription" name="bookDescription" placeholder="Write a short description about the book"></textarea>
+
+      <label for="bookImage">Book Cover Image URL</label>
+      <input type="url" id="bookImage" name="bookImage" placeholder="Paste image URL here" />
+
+      <label for="bookFile">Upload PDF File</label>
+      <input type="file" id="bookFile" name="bookFile" accept=".pdf" required />
+
+      <button type="submit">Upload Book</button>
+    </form>
+  </div>
+</main>
+
+</body>
+</html>
